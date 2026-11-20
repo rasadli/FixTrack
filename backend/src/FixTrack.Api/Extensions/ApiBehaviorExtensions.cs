@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FixTrack.Api.Extensions;
 
@@ -11,6 +12,7 @@ public static class ApiBehaviorExtensions
     // enums as strings, and null properties omitted.
     public static IServiceCollection AddFixTrackApiBehavior(this IServiceCollection services)
     {
+        services.Configure<ApiBehaviorOptions>(options => options.SuppressMapClientErrors = true);
         services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
