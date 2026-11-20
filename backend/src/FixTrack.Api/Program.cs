@@ -1,21 +1,16 @@
+// Composition root. Frozen after C0: change only via a PR reviewed by the integrator.
+using FixTrack.Api.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddFixTrackApiBehavior();
+builder.Services.AddMockAuthentication();
+builder.Services.AddCaseServices();
 builder.Services.AddOpenApi();
-
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
+app.UseFixTrackErrorHandling();
+app.UseAuthentication();
 app.UseAuthorization();
-
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 app.MapControllers();
-
+app.MapGreeting();
 app.Run();
