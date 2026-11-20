@@ -1,1 +1,140 @@
 @FixTrack.Api_HostAddress = http://localhost:5072
+@userA = user-a-token
+@userB = user-b-token
+@admin = admin-token
+# The first POST after restart creates case-105. For later runs, copy the ID from Location.
+@createdCaseId = case-105
+
+# Statuses below are expected per the API contract.
+# Authenticated requests, body validation and framework error envelopes are pending mock-auth-validation.
+
+### View the anonymous greeting — 200 HTML
+GET {{FixTrack.Api_HostAddress}}/api/v1/greeting
+
+### List user A’s cases — 200
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+
+### List user B’s cases — 200
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userB}}
+
+### List all cases as admin — 200
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{admin}}
+
+### Page through all cases as admin — 200
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases?page=1&perPage=2
+Authorization: Bearer {{admin}}
+
+### Read user A’s own case — 200
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases/case-101
+Authorization: Bearer {{userA}}
+
+### Read user B’s case as user A — 404
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases/case-103
+Authorization: Bearer {{userA}}
+
+### Read a nonexistent case — 404
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases/case-999
+Authorization: Bearer {{userA}}
+
+### Create a case as user A — 201, with the new case URL in Location
+POST {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{
+  "customerName": "Alex Morgan",
+  "device": "Laptop",
+  "issueDescription": "The charging port stops working intermittently.",
+  "caseType": "Repair"
+}
+
+### Replace the newly created case — 200
+PUT {{FixTrack.Api_HostAddress}}/api/v1/cases/{{createdCaseId}}
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{
+  "customerName": "Alex Morgan",
+  "device": "Laptop",
+  "issueDescription": "The charging port stops working intermittently.",
+  "caseType": "Repair",
+  "status": "InProgress"
+}
+
+### Replace user B’s case as user A — 404
+PUT {{FixTrack.Api_HostAddress}}/api/v1/cases/case-103
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{
+  "customerName": "Alex Morgan",
+  "device": "Laptop",
+  "issueDescription": "The charging port stops working intermittently.",
+  "caseType": "Repair",
+  "status": "InProgress"
+}
+
+### Delete the newly created case — 200, with data set to null
+DELETE {{FixTrack.Api_HostAddress}}/api/v1/cases/{{createdCaseId}}
+Authorization: Bearer {{userA}}
+
+### Delete user B’s case as user A — 404
+DELETE {{FixTrack.Api_HostAddress}}/api/v1/cases/case-103
+Authorization: Bearer {{userA}}
+
+### List cases without a token — 401
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases
+
+### List cases with an invalid token — 401
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer nope
+
+### Create with missing required fields — 400
+POST {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{}
+
+### Create with a one-character customer name — 400
+POST {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{
+  "customerName": "A",
+  "device": "Laptop",
+  "issueDescription": "The charging port stops working intermittently.",
+  "caseType": "Repair"
+}
+
+### Create with a server-managed ownerId — 400
+POST {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+Content-Type: application/json
+
+{
+  "customerName": "Alex Morgan",
+  "device": "Laptop",
+  "issueDescription": "The charging port stops working intermittently.",
+  "caseType": "Repair",
+  "ownerId": "user-b"
+}
+
+### List with an invalid page size — 400
+GET {{FixTrack.Api_HostAddress}}/api/v1/cases?perPage=0
+Authorization: Bearer {{userA}}
+
+### Use an unsupported method — 405
+PATCH {{FixTrack.Api_HostAddress}}/api/v1/cases/case-101
+Authorization: Bearer {{userA}}
+
+### Create with a plain-text body — 415
+POST {{FixTrack.Api_HostAddress}}/api/v1/cases
+Authorization: Bearer {{userA}}
+Content-Type: text/plain
+
+Laptop needs repair.
