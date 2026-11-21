@@ -2,9 +2,6 @@ using FixTrack.Domain.Cases;
 
 namespace FixTrack.Application.Cases.Contracts;
 
-/// <summary>
-/// A repair case as returned by the API.
-/// </summary>
 public sealed record CaseResponse
 {
     public required string Id { get; init; }
@@ -27,7 +24,6 @@ public sealed record CaseResponse
 
     public DateTimeOffset? UpdatedAt { get; init; }
 
-    /// <summary>Maps a domain <see cref="RepairCase"/> to its API representation.</summary>
     public static CaseResponse From(RepairCase c) => new()
     {
         Id = c.Id,

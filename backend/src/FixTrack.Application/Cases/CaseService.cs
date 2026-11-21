@@ -4,7 +4,6 @@ using FixTrack.Domain.Cases;
 
 namespace FixTrack.Application.Cases;
 
-/// <inheritdoc cref="ICaseService"/>
 public sealed class CaseService(
     ICaseRepository repository,
     ICurrentRequester currentRequester,
@@ -90,8 +89,7 @@ public sealed class CaseService(
     private static bool CanAccess(Requester requester, RepairCase repairCase) =>
         requester.IsAdmin || repairCase.OwnerId == requester.UserId;
 
-    // Validation happens before the service is called (feature/mock-auth-validation).
-    // These guards only protect the domain model if an unvalidated request slips through.
+    // Requests are validated before they reach the service; these guards are a safety net.
     private static string Required(string? value, string name) =>
         string.IsNullOrWhiteSpace(value) ? throw new ArgumentException($"{name} is required.", name) : value.Trim();
 

@@ -7,17 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace FixTrack.Tests.Infrastructure;
 
-/// <summary>
-/// Test-only stand-in for the real mock bearer authentication handler.
-/// </summary>
-/// <remarks>
-/// The real handler is implemented on feature/mock-auth-validation. Until it is merged,
-/// <see cref="FixTrackApiFactory"/> registers this handler under the same scheme name so that
-/// other branches (for example feature/cases-core) can already write authenticated tests.
-/// Once the real "MockBearer" scheme exists, the factory skips this handler and tests run
-/// against the real one. It recognises the same tokens and produces the same claims as
-/// <see cref="FixTrackClaims"/> describes.
-/// </remarks>
+// Test stand-in for the real MockBearer handler; accepts the same tokens and issues the same claims.
 public sealed class TestAuthHandler(
     IOptionsMonitor<AuthenticationSchemeOptions> options,
     ILoggerFactory logger,

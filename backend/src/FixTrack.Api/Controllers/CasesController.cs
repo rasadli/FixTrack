@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FixTrack.Api.Controllers;
 
-/// <summary>
-/// CRUD endpoints for repair cases. See docs/API_CONTRACT.md.
-/// </summary>
 [ApiController]
 [Authorize]
 [Route("api/v1/cases")]
@@ -20,7 +17,6 @@ public sealed class CasesController(ICaseService cases) : ControllerBase
     private const int DefaultPerPage = 10;
     private const int MaxPerPage = 50;
 
-    /// <summary>Lists the requester's cases (admin: all cases), paginated.</summary>
     [HttpGet]
     [ProducesResponseType<PagedApiResponse<CaseResponse>>(StatusCodes.Status200OK)]
     [ProducesResponseType<ApiErrorResponse>(StatusCodes.Status400BadRequest)]
@@ -38,7 +34,6 @@ public sealed class CasesController(ICaseService cases) : ControllerBase
         return Ok(ApiResponses.Paged("Cases retrieved.", result.Items, result.Total, pageNumber, pageSize));
     }
 
-    /// <summary>Gets one case.</summary>
     [HttpGet("{id}")]
     [ProducesResponseType<ApiResponse<CaseResponse>>(StatusCodes.Status200OK)]
     [ProducesResponseType<ApiErrorResponse>(StatusCodes.Status404NotFound)]
@@ -50,7 +45,6 @@ public sealed class CasesController(ICaseService cases) : ControllerBase
             : Ok(ApiResponses.Ok("Case retrieved.", found));
     }
 
-    /// <summary>Creates a case owned by the requester.</summary>
     [HttpPost]
     [Consumes("application/json")]
     [ProducesResponseType<ApiResponse<CaseResponse>>(StatusCodes.Status201Created)]
@@ -61,7 +55,6 @@ public sealed class CasesController(ICaseService cases) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, ApiResponses.Ok("Case created.", created));
     }
 
-    /// <summary>Replaces a case's editable fields.</summary>
     [HttpPut("{id}")]
     [Consumes("application/json")]
     [ProducesResponseType<ApiResponse<CaseResponse>>(StatusCodes.Status200OK)]
@@ -75,7 +68,6 @@ public sealed class CasesController(ICaseService cases) : ControllerBase
             : Ok(ApiResponses.Ok("Case updated.", updated));
     }
 
-    /// <summary>Deletes a case.</summary>
     [HttpDelete("{id}")]
     [ProducesResponseType<ApiResponse<object>>(StatusCodes.Status200OK)]
     [ProducesResponseType<ApiErrorResponse>(StatusCodes.Status404NotFound)]

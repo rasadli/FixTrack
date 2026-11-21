@@ -3,13 +3,8 @@ using FixTrack.Domain.Cases;
 
 namespace FixTrack.Infrastructure.Cases;
 
-/// <summary>
-/// Initial cases loaded into memory at startup (see docs/API_CONTRACT.md §8).
-/// All changes are lost when the application restarts.
-/// </summary>
 public static class CaseSeedData
 {
-    /// <summary>The first ID handed out to a newly created case is <c>case-{FirstNewIdNumber}</c>.</summary>
     public const int FirstNewIdNumber = 105;
 
     public static IReadOnlyList<RepairCase> Create() =>
