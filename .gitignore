@@ -9,12 +9,6 @@
 TestResults/
 *.nupkg
 
-# Frontend
-node_modules/
-dist/
-build/
-coverage/
-
 # Environment files
 .env
 .env.*
@@ -26,19 +20,3 @@ coverage/
 # Operating system
 .DS_Store
 Thumbs.db
-
-# Python
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Python
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/

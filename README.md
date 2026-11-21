@@ -32,10 +32,7 @@ backend/
     FixTrack.Tests/           Integration tests (WebApplicationFactory)
 docs/
   API_CONTRACT.md             Agreed API contract
-  DEMO_SCRIPT.md              Demo video script
 ```
-
-`frontend/` and `ai-service/` contain early scaffolding for later assignments and are not part of Assignment 2.
 
 ## 3. Prerequisites and installation
 
@@ -361,8 +358,6 @@ Every scenario below has a matching request in [`FixTrack.Api.http`](backend/src
 | 5 | Validation errors | Missing fields; one-character `customerName`; unknown `ownerId`; `?perPage=0` | 400 `VALIDATION_ERROR` with `details` |
 | 6 | Nonexistent resource | `GET /api/v1/cases/case-999` | 404 `NOT_FOUND` |
 | 7 | HTML greeting page | `GET /api/v1/greeting` without a token | 200 `text/html; charset=utf-8` |
-
-The full script for the video, with timings, is in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
 
 ## 10. Team and contributions
 
