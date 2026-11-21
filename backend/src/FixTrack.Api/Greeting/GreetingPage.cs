@@ -9,7 +9,7 @@ internal static class GreetingPage
     {
         var encoder = HtmlEncoder.Default;
         var members = string.Join(Environment.NewLine, TeamMembers.All.Select(member => $"""
-            <li><strong>{encoder.Encode(member.Name)}</strong><p>{encoder.Encode(member.Responsibility)}</p></li>
+            <li><strong>{encoder.Encode(member.Name)}</strong><p class="student-id">Student ID: {encoder.Encode(member.StudentId)}</p><p>{encoder.Encode(member.Responsibility)}</p></li>
             """));
         var timestamp = encoder.Encode(generatedAt.ToUniversalTime().ToString("u", CultureInfo.InvariantCulture));
 
@@ -37,6 +37,7 @@ internal static class GreetingPage
                 thead { background: #184a43; color: #fff; }
                 tbody tr:last-child td { border-bottom: 0; }
                 .status { margin-top: 1rem; color: #184a43; }
+                .student-id { color: #4a6460; font-size: .9rem; }
                 @media (max-width: 42rem) {
                   main { padding: 1.5rem 1rem; }
                   ul { grid-template-columns: 1fr; }

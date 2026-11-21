@@ -8,15 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FixTrack.Tests.Infrastructure;
 
-/// <summary>
-/// Hosts the FixTrack API in memory for integration tests.
-/// </summary>
 public sealed class FixTrackApiFactory : WebApplicationFactory<Program>
 {
-    /// <summary>
-    /// Creates a client that sends <c>Authorization: Bearer &lt;token&gt;</c>,
-    /// or no Authorization header when <paramref name="token"/> is <c>null</c>.
-    /// </summary>
     public HttpClient CreateClientAs(string? token)
     {
         var client = CreateClient();
@@ -34,9 +27,7 @@ public sealed class FixTrackApiFactory : WebApplicationFactory<Program>
         {
             services.AddAuthentication();
 
-            // Register TestAuthHandler only if the real "MockBearer" scheme is not registered yet.
-            // PostConfigure runs after all application configuration, so it can see whether the
-            // real handler (feature/mock-auth-validation) has already added the scheme.
+            // Fall back to TestAuthHandler only when the app has no real MockBearer scheme.
             services.PostConfigure<AuthenticationOptions>(options =>
             {
                 if (options.SchemeMap.ContainsKey(FixTrackClaims.SchemeName))

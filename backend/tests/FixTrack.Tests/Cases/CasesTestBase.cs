@@ -4,10 +4,6 @@ using FixTrack.Tests.Infrastructure;
 
 namespace FixTrack.Tests.Cases;
 
-/// <summary>
-/// xUnit creates a new test class instance per test, so every test gets its own
-/// application and therefore a fresh copy of the in-memory seed data.
-/// </summary>
 public abstract class CasesTestBase : IDisposable
 {
     protected const string CasesUrl = "/api/v1/cases";

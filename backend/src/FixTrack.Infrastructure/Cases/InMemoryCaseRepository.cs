@@ -4,10 +4,6 @@ using FixTrack.Domain.Cases;
 
 namespace FixTrack.Infrastructure.Cases;
 
-/// <summary>
-/// Thread-safe, process-local case store. Register as a singleton.
-/// Starts with <see cref="CaseSeedData"/>; all data resets when the application restarts.
-/// </summary>
 public sealed class InMemoryCaseRepository : ICaseRepository
 {
     private const string TrackingCodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

@@ -21,6 +21,9 @@ public sealed class GreetingEndpointTests(FixTrackApiFactory factory) : IClassFi
         Assert.Contains("Rashad Asadli", html);
         Assert.Contains("Khavar Jabbarli", html);
         Assert.Contains("Faig Almuradli", html);
+        Assert.Contains("Student ID: 17960", html);
+        Assert.Contains("Student ID: 18167", html);
+        Assert.Contains("Student ID: 23168", html);
         Assert.Contains("<code>/api/v1/cases</code>", html);
         Assert.Contains("<code>/api/v1/cases/{id}</code>", html);
         Assert.Contains("<code>/api/v1/greeting</code>", html);

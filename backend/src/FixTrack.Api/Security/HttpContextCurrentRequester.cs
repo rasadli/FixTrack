@@ -3,9 +3,6 @@ using FixTrack.Application.Security;
 
 namespace FixTrack.Api.Security;
 
-/// <summary>
-/// Reads the current requester from the authenticated <see cref="HttpContext.User"/>.
-/// </summary>
 public sealed class HttpContextCurrentRequester(IHttpContextAccessor httpContextAccessor) : ICurrentRequester
 {
     public Requester Get()

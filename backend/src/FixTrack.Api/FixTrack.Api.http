@@ -5,8 +5,7 @@
 # The first POST after restart creates case-105. For later runs, copy the ID from Location.
 @createdCaseId = case-105
 
-# Statuses below are expected per the API contract.
-# Authenticated requests, body validation and framework error envelopes are pending mock-auth-validation.
+# Each title shows the expected status. Restart the API to reset the in-memory data.
 
 ### View the anonymous greeting — 200 HTML
 GET {{FixTrack.Api_HostAddress}}/api/v1/greeting
