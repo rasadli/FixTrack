@@ -23,7 +23,9 @@ public static class ApiBehaviorExtensions
                         var field = FieldName(item.Key);
                         return new FieldError(field, field == "body" ? "The request body is invalid." : $"{field} is invalid.");
                     })
+                    .DistinctBy(error => error.Field)
                     .ToList();
+                if (errors.Count > 1) errors.RemoveAll(error => error.Field == "body");
                 return new BadRequestObjectResult(ApiErrors.Validation(errors));
             };
         });

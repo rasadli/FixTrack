@@ -206,6 +206,7 @@ public sealed class CaseValidationTests(FixTrackApiFactory factory) : IClassFixt
         Assert.Equal("Invalid request.", error.GetProperty("message").GetString());
         var actual = error.GetProperty("details").EnumerateArray()
             .Select(item => item.GetProperty("field").GetString()).ToArray();
+        Assert.Equal(fields.Length, actual.Length);
         foreach (var field in fields) Assert.Contains(field, actual);
     }
 
