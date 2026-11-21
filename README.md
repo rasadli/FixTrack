@@ -32,10 +32,7 @@ backend/
     FixTrack.Tests/           Integration tests (WebApplicationFactory)
 docs/
   API_CONTRACT.md             Agreed API contract
-  DEMO_SCRIPT.md              Demo video script
 ```
-
-`frontend/` and `ai-service/` contain early scaffolding for later assignments and are not part of Assignment 2.
 
 ## 3. Prerequisites and installation
 
@@ -362,15 +359,13 @@ Every scenario below has a matching request in [`FixTrack.Api.http`](backend/src
 | 6 | Nonexistent resource | `GET /api/v1/cases/case-999` | 404 `NOT_FOUND` |
 | 7 | HTML greeting page | `GET /api/v1/greeting` without a token | 200 `text/html; charset=utf-8` |
 
-The full script for the video, with timings, is in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
-
 ## 10. Team and contributions
 
 | Member | Student ID | Contribution |
 |---|---|---|
 | Rashad Asadli | 17960 | Designed the shared API contract that the team built on and implemented repair case CRUD: the in-memory repository with seed data, the case service with ownership rules, the cases controller, and the CRUD and ownership tests. Integrated and reviewed the feature branches, and wrote the README and CONTRIBUTORS file. |
 | Khavar Jabbarli | 18167 | Implemented mock bearer-token authentication, request body validation, and the JSON error responses for 401, 404, 405, 415, and 500, with tests for each. |
-| Faig Almuradli | 23168 | Built the HTML greeting page, wrote the example API requests and the demo video script, and added the greeting page tests. |
+| Faig Almuradli | 23168 | Built the HTML greeting page, wrote the example API requests, and added the greeting page tests. |
 
 GitHub accounts and detailed responsibilities are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
