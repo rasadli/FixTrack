@@ -8,6 +8,6 @@ internal static class TeamMembers
     [
         new("Rashad Asadli", "17960", "API contract, project integration, and repair case CRUD."),
         new("Khavar Jabbarli", "18167", "Mock authentication, request validation, and API error responses."),
-        new("Faig Almuradli", "23168", "Greeting page, project documentation, example requests, and demo script.")
+        new("Faig Almuradli", "23168", "Greeting page, example API requests, and greeting page tests.")
     ];
 }

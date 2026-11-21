@@ -365,7 +365,7 @@ Every scenario below has a matching request in [`FixTrack.Api.http`](backend/src
 |---|---|---|
 | Rashad Asadli | 17960 | Designed the shared API contract that the team built on and implemented repair case CRUD: the in-memory repository with seed data, the case service with ownership rules, the cases controller, and the CRUD and ownership tests. Integrated and reviewed the feature branches, and wrote the README and CONTRIBUTORS file. |
 | Khavar Jabbarli | 18167 | Implemented mock bearer-token authentication, request body validation, and the JSON error responses for 401, 404, 405, 415, and 500, with tests for each. |
-| Faig Almuradli | 23168 | Built the HTML greeting page, wrote the example API requests and the demo video script, and added the greeting page tests. |
+| Faig Almuradli | 23168 | Built the HTML greeting page, wrote the example API requests, and added the greeting page tests. |
 
 GitHub accounts and detailed responsibilities are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
