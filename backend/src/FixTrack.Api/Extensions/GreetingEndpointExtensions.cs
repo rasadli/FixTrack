@@ -4,7 +4,6 @@ namespace FixTrack.Api.Extensions;
 
 public static class GreetingEndpointExtensions
 {
-    // OWNER: Faig — project and team greeting page.
     public static WebApplication MapGreeting(this WebApplication app)
     {
         app.MapGet("/api/v1/greeting", () =>

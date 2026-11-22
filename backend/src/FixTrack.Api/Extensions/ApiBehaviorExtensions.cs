@@ -8,7 +8,7 @@ namespace FixTrack.Api.Extensions;
 
 public static class ApiBehaviorExtensions
 {
-    // OWNER: Khavar. Keep JSON names camelCase and omit null response properties.
+    // Keep JSON names camelCase and omit null response properties.
     public static IServiceCollection AddFixTrackApiBehavior(this IServiceCollection services)
     {
         services.PostConfigure<ApiBehaviorOptions>(options =>

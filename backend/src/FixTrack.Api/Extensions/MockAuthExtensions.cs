@@ -6,7 +6,7 @@ namespace FixTrack.Api.Extensions;
 
 public static class MockAuthExtensions
 {
-    // OWNER: Khavar - registers the mock bearer scheme and current requester.
+    // Registers the mock bearer scheme and current requester.
     public static IServiceCollection AddMockAuthentication(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
