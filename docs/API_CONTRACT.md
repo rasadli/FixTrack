@@ -1,13 +1,13 @@
 # FixTrack API Contract (Assignment 2)
 
-This is the shared contract that all feature branches build against. The types it describes live in:
+This document defines the FixTrack API: routes, validation, authentication, response formats, and error codes. The types it describes live in:
 
 - `backend/src/FixTrack.Domain/Cases/`: `RepairCase`, `CaseType`, `CaseStatus`
 - `backend/src/FixTrack.Application/Cases/Contracts/`: request and response DTOs
 - `backend/src/FixTrack.Application/Common/`: envelopes, `ErrorCodes`, `Messages`, factory helpers
 - `backend/src/FixTrack.Application/Security/`: `Requester`, `ICurrentRequester`, `FixTrackClaims`
 
-If code and this document disagree, raise it in a PR. Don't silently change either one.
+Any change to the API should update this document in the same pull request.
 
 ---
 
@@ -112,17 +112,15 @@ Requests send `Authorization: Bearer <token>`. Assignment 2 uses predefined mock
     "id": "case-101",
     "trackingCode": "FT-84A2",
     "ownerId": "user-a",
-    "customerName": "…",
+    "customerName": "Aylin Mammadova",
     "device": "Laptop",
-    "issueDescription": "…",
+    "issueDescription": "Laptop does not power on after a liquid spill on the keyboard.",
     "caseType": "Repair",
     "status": "Open",
-    "createdAt": "2026-11-01T09:00:00+00:00"
+    "createdAt": "2026-11-02T09:15:00+00:00"
   }
 }
 ```
-
-The values shown with `…` and the timestamp are placeholders; the actual seed values are defined on `feature/cases-core`.
 
 ### List (`PagedApiResponse<T>`)
 
@@ -218,16 +216,3 @@ Data is held **in memory only**. No database is used, and **all data resets to t
 
 - Documented non-existent ID for demos and tests: **`case-999`**.
 - New cases get IDs starting at **`case-105`**.
-
----
-
-## 9. File ownership
-
-The ticket's work plan (`ASSIGNMENT2_WORK_PLAN.md` §4) was not in the repository when this document was written. This table follows the owner comments on the C0 extension stubs; update it if the work plan says otherwise.
-
-| Area / files | Owner | Branch |
-|---|---|---|
-| `Program.cs`, `docs/API_CONTRACT.md`, `FixTrack.Application/Common/`, `FixTrack.Application/Security/`, `FixTrack.Domain/Cases/`, case DTOs, `tests/FixTrack.Tests/Infrastructure/` | Integrator (shared contract, frozen after C0; change via reviewed PR only) | `feature/api-contract` |
-| `Extensions/ApiBehaviorExtensions.cs`, `Extensions/MockAuthExtensions.cs`, `Extensions/ErrorHandlingExtensions.cs`, auth handler, validation, error handling | Khavar | `feature/mock-auth-validation` |
-| `Extensions/CaseServiceExtensions.cs`, cases controller, case service, in-memory repository, seed data | Rashad | `feature/cases-core` |
-| `Extensions/GreetingEndpointExtensions.cs`, greeting HTML page, README, demo requests | Faig | `feature/greeting-docs-demo` |
