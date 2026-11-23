@@ -4,7 +4,7 @@ FixTrack is a repair, warranty, and return case management system built for **CS
 
 Assignment 2 deliberately uses **in-memory mock data** and **predefined bearer tokens**. There is no database and no real identity provider.
 
-**Demo video:** https://www.youtube.com/watch?v=a_xLdcBAAzY
+**Demo video:** https://www.youtube.com/watch?v=btv2FdqQit8
 
 ---
 
