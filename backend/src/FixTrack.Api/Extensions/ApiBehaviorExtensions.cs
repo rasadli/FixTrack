@@ -2,12 +2,16 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FixTrack.Api.Validation;
 using FixTrack.Application.Common;
+using FixTrack.Domain.Cases;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace FixTrack.Api.Extensions;
 
 public static class ApiBehaviorExtensions
 {
+    private const string InvalidBodyMessage = "The request body must be a valid JSON object.";
+
     // Keep JSON names camelCase and omit null response properties.
     public static IServiceCollection AddFixTrackApiBehavior(this IServiceCollection services)
     {
@@ -21,7 +25,8 @@ public static class ApiBehaviorExtensions
                     .Select(item =>
                     {
                         var field = FieldName(item.Key);
-                        return new FieldError(field, field == "body" ? "The request body is invalid." : $"{field} is invalid.");
+                        var message = InvalidFieldMessage(field, item.Value!.Errors);
+                        return new FieldError(message == InvalidBodyMessage ? "body" : field, message);
                     })
                     .DistinctBy(error => error.Field)
                     .ToList();
@@ -39,6 +44,29 @@ public static class ApiBehaviorExtensions
         });
 
         return services;
+    }
+
+    // Turns System.Text.Json binding errors into client-friendly messages without exposing internal type names.
+    private static string InvalidFieldMessage(string field, ModelErrorCollection errors)
+    {
+        var detail = string.Join(" ", errors.Select(error => error.Exception?.Message ?? error.ErrorMessage));
+
+        if (detail.Contains("could not be mapped", StringComparison.OrdinalIgnoreCase))
+        {
+            return $"{field} is not an allowed field.";
+        }
+
+        if (field != "body" && detail.Contains("could not be converted", StringComparison.OrdinalIgnoreCase))
+        {
+            return field switch
+            {
+                "caseType" => $"caseType must be one of: {string.Join(", ", Enum.GetNames<CaseType>())}.",
+                "status" => $"status must be one of: {string.Join(", ", Enum.GetNames<CaseStatus>())}.",
+                _ => $"{field} must be a string."
+            };
+        }
+
+        return InvalidBodyMessage;
     }
 
     private static string FieldName(string key)

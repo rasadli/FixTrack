@@ -53,18 +53,10 @@ public sealed class CasesWriteTests : CasesTestBase
 
         var response = await ClientAs(FixTrackClaims.UserAToken).PostAsync(CasesUrl, Json(body));
 
-        // Once validation (feature/mock-auth-validation) is merged, unknown fields are rejected with 400.
-        // Before that they are ignored. Either way, the requester must never be able to choose the owner.
-        if (response.StatusCode == HttpStatusCode.BadRequest)
-        {
-            return;
-        }
-
-        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-        var data = (await ReadJsonAsync(response)).GetProperty("data");
-        Assert.Equal("user-a", data.GetProperty("ownerId").GetString());
-        Assert.Equal("case-105", data.GetProperty("id").GetString());
-        Assert.Equal("Open", data.GetProperty("status").GetString());
+        // Server-managed fields are unknown fields in the request, so the requester can never choose the owner.
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        var details = (await ReadJsonAsync(response)).GetProperty("error").GetProperty("details");
+        Assert.Contains(details.EnumerateArray(), d => d.GetProperty("field").GetString() == "ownerId");
     }
 
     [Fact]
