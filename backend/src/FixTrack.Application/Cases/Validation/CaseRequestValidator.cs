@@ -60,7 +60,7 @@ public static class CaseRequestValidator
         }
         else if (!Enum.IsDefined(value.Value))
         {
-            errors.Add(new FieldError(field, $"{field} is invalid."));
+            errors.Add(new FieldError(field, $"{field} must be one of: {string.Join(", ", Enum.GetNames<TEnum>())}."));
         }
     }
 }

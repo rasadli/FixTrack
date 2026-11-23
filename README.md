@@ -187,6 +187,12 @@ Authorization: Bearer user-a-token
 }
 ```
 
+**Headers:** `Authorization: Bearer <token>` (any of the three tokens). Users see only their own cases; the administrator sees all cases.
+
+**Query:** `page`, `perPage` (optional, see the table above).
+
+**Errors:** `401 UNAUTHORIZED` (missing or invalid token) · `400 VALIDATION_ERROR` (`page` or `perPage` is not a valid integer or out of range).
+
 ### GET /api/v1/cases/{id} — get one case
 
 ```http
@@ -213,6 +219,12 @@ Authorization: Bearer user-a-token
   }
 }
 ```
+
+**Headers:** `Authorization: Bearer <token>` (any of the three tokens). A user gets their own case; an administrator gets any case.
+
+**Path:** `id`, the case ID, for example `case-101`.
+
+**Errors:** `401 UNAUTHORIZED` · `404 NOT_FOUND` (the case does not exist, or belongs to another user).
 
 ### POST /api/v1/cases — create a case
 
@@ -248,6 +260,10 @@ Content-Type: application/json
   }
 }
 ```
+
+**Headers:** `Authorization: Bearer <token>` and `Content-Type: application/json` (any of the three tokens). The new case is always owned by the requester.
+
+**Errors:** `401 UNAUTHORIZED` · `400 VALIDATION_ERROR` (missing field, wrong length or type, invalid `caseType`, unknown field such as `ownerId`, malformed JSON, empty body) · `415 UNSUPPORTED_MEDIA_TYPE` (body is not JSON).
 
 ### PUT /api/v1/cases/{id} — replace a case
 
@@ -286,6 +302,12 @@ Content-Type: application/json
 }
 ```
 
+**Headers:** `Authorization: Bearer <token>` and `Content-Type: application/json` (any of the three tokens). A user can replace only their own case; an administrator can replace any case.
+
+**Path:** `id`, the case ID.
+
+**Errors:** `401 UNAUTHORIZED` · `400 VALIDATION_ERROR` (same body rules as POST; `status` is also required) · `404 NOT_FOUND` (the case does not exist, or belongs to another user) · `415 UNSUPPORTED_MEDIA_TYPE`.
+
 ### DELETE /api/v1/cases/{id} — delete a case
 
 ```http
@@ -302,6 +324,12 @@ Authorization: Bearer user-a-token
   "data": null
 }
 ```
+
+**Headers:** `Authorization: Bearer <token>` (any of the three tokens). A user can delete only their own case; an administrator can delete any case.
+
+**Path:** `id`, the case ID.
+
+**Errors:** `401 UNAUTHORIZED` · `404 NOT_FOUND` (the case does not exist, or belongs to another user).
 
 ## 8. Response format and error codes
 

@@ -48,7 +48,7 @@ internal static class GreetingPage
               <main>
                 <header>
                   <h1>FixTrack</h1>
-                  <p>A repair, warranty, and return case management system.</p>
+                  <p>A repair, warranty, and return case management system for electronics repair shops: staff and customers log device cases and track them from intake to completion.</p>
                   <p>CSCI 3509 · Introduction to Software Engineering</p>
                   <p class="status"><strong>Running</strong> · API v1</p>
                   <p>Generated at {{timestamp}} (UTC)</p>
