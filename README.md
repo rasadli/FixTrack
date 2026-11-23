@@ -4,7 +4,7 @@ FixTrack is a repair, warranty, and return case management system built for **CS
 
 Assignment 2 deliberately uses **in-memory mock data** and **predefined bearer tokens**. There is no database and no real identity provider.
 
-**Demo video:** TODO — add the YouTube link (max. 5 minutes).
+**Demo video:** https://www.youtube.com/watch?v=a_xLdcBAAzY
 
 ---
 
@@ -371,8 +371,10 @@ GitHub accounts and detailed responsibilities are listed in [CONTRIBUTORS.md](CO
 
 Every member developed on their own feature branch (`feature/api-contract`, `feature/cases-core`, `feature/mock-auth-validation`, `feature/greeting-docs-demo`) and merged it into `main` through a pull request.
 
-Output of `git shortlog -sn --all`:
+Output of `git shortlog -sn --all`, taken just before this final README update (identities merged through `.mailmap`):
 
 ```
-TODO — run `git shortlog -sn --all` after the final merge and paste the output here.
+    30	Rashad Asadli
+     5	Khavar Jabbarli
+     4	Faig Almuradli
 ```
